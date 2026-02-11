@@ -1,0 +1,295 @@
+<!DOCTYPE html> 
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For You ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Poppins;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  background:radial-gradient(circle at bottom,#020617,#0f172a,#020617);
+}
+
+/* GALAXY GLOW */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,#1e3a8a33,transparent,transparent);
+  animation:galaxyMove 20s linear infinite;
+}
+
+@keyframes galaxyMove{
+  from{transform:translate(-10%,-10%)}
+  to{transform:translate(10%,10%)}
+}
+
+/* STARS */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:.2}
+  to{opacity:1}
+}
+
+/* METEOR */
+.meteor{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  box-shadow:0 0 10px white;
+  animation:meteorFall 2s linear;
+}
+@keyframes meteorFall{
+  to{transform:translate(-300px,300px); opacity:0;}
+}
+
+/* CARD */
+.card{
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.08);
+  padding:30px;
+  border-radius:25px;
+  text-align:center;
+  max-width:320px;
+  box-shadow:0 0 40px rgba(255,255,255,0.15);
+  animation:fadeIn 1.2s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+/* TITLE */
+.title{
+  font-family:"Great Vibes";
+  font-size:42px;
+  background:linear-gradient(45deg,#e0c3fc,#8ec5fc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* BUTTON */
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#e0c3fc,#8ec5fc);
+  color:black;
+  font-weight:bold;
+  margin-top:20px;
+  font-size:16px;
+}
+
+.letter{transform:scale(0);transition:.6s;}
+.show{transform:scale(1);}
+
+.hidden{display:none;}
+
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  top:-10px;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh);}
+}
+
+/* 🎁 GIFT */
+.gift{
+  width:130px;
+  height:130px;
+  background:linear-gradient(45deg,#8ec5fc,#e0c3fc);
+  margin:20px auto;
+  position:relative;
+  border-radius:15px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.gift:active{
+  transform:scale(.95);
+}
+
+.lid{
+  position:absolute;
+  width:140px;
+  height:40px;
+  background:linear-gradient(45deg,#e0c3fc,#8ec5fc);
+  top:-30px;
+  left:-5px;
+  border-radius:10px;
+  transition:.6s;
+}
+
+.ribbonV{
+  position:absolute;
+  width:20px;
+  height:130px;
+  background:white;
+  left:50%;
+  transform:translateX(-50%);
+}
+.ribbonH{
+  position:absolute;
+  height:20px;
+  width:130px;
+  background:white;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+/* FOTO */
+.photoView{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain; /* biar pas di HP */
+  background:black;
+  display:none;
+  z-index:999;
+  animation:fadePhoto 1s ease;
+}
+@keyframes fadePhoto{
+  from{opacity:0;transform:scale(1.1)}
+  to{opacity:1;transform:scale(1)}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8c8a73467.mp3">
+</audio>
+
+<script>
+/* STARS */
+for(let i=0;i<120;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.top=Math.random()*100+"vh";
+  s.style.left=Math.random()*100+"vw";
+  document.body.appendChild(s);
+}
+
+/* METEOR */
+setInterval(()=>{
+  let m=document.createElement("div");
+  m.className="meteor";
+  m.style.top=Math.random()*50+"vh";
+  m.style.left=Math.random()*100+"vw";
+  document.body.appendChild(m);
+  setTimeout(()=>m.remove(),2000);
+},2500);
+</script>
+
+<!-- PAGE 1 -->
+<div id="page1" class="card">
+  <div class="title">Hi Sri Andani ✨</div>
+  <p>Ada Sedikit pesan buat kamu 💌</p>
+  <button onclick="openLetter()">Buka Surat</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="card hidden">
+  <div class="title">Happy Birthday 🎂</div>
+
+  <div id="letterText" class="letter">
+    Happy birthday Ponggg<br>
+    Selamat bertambah umur semoga makin dewasa,makin keren,makin cantik,
+    semua cita-cita dan manifestasi perlahan terwujud.
+    semoga hidup kamu dipenuhi hal-hal menyenankan
+    dan dikelilingi orang-orang tulus,sehat selalu
+    bersama keluarga tercinta. 🌙<br><br>
+    semangat skripsianya yaa,
+    skill menyetir mobilnya juga gk lupa
+    semoga dan harus lebih okkk terutama pas belok
+    wkwkwkwk. Maaf ya kado ultah dari ku cuma hal sederhana 
+    seperti ini,maaf juga udah lewat sehari aku ngucapinnya hihihi,
+
+    i genuinely wish u the best. ✨
+  </div>
+
+  <button onclick="toGift()">Lihat Kado 🎁</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="card hidden">
+  <div class="title">Special Gift 🎁</div>
+  <p>Klik kadonya ya 😉</p>
+
+  <div class="gift" onclick="openGift()">
+    <div class="lid" id="lid"></div>
+    <div class="ribbonV"></div>
+    <div class="ribbonH"></div>
+  </div>
+</div>
+
+<!-- FOTO -->
+<img src="https://imgur.com/LiQjr8G.jpg" id="photo" class="photoView">
+
+<script>
+
+function openLetter(){
+  page1.classList.add("hidden");
+  page2.classList.remove("hidden");
+  setTimeout(()=>letterText.classList.add("show"),300);
+}
+
+function toGift(){
+  page2.classList.add("hidden");
+  page3.classList.remove("hidden");
+}
+
+function openGift(){
+  lid.style.transform="rotate(-25deg) translateY(-40px)";
+  confetti();
+
+  setTimeout(()=>{
+    photo.style.display="block";
+  },700);
+}
+
+function confetti(){
+  for(let i=0;i<120;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    c.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(c);
+  }
+}
+
+</script>
+
+</body>
+</html>
